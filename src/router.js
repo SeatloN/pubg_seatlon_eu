@@ -27,7 +27,21 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Player.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/Player.vue'),
+      children: [
+        {
+          path: ':platform',
+          name: 'platform',
+          component: () => import(/* webpackChunkName: "about" */ './views/Platform.vue'),
+          children: [
+            {
+              path: ':name',
+              name: 'playername',
+              component: () => import(/* webpackChunkName: "about" */ './views/PlayerName.vue'),
+            }
+          ]
+        }
+      ],
     },
     {
       path: '/match',
